@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #define RESETAR  "\x1B[0m"      //SE [1;**m - Negrito
-#define VERMELHO  "\x1B[31m"
+#define VERMELHO  "\x1B[31m"    //SE
 #define VERDE  "\x1B[32m"
 #define AMARELO  "\x1B[33m"
 #define LARANJA  "\x1B[34m"
@@ -36,9 +36,21 @@ void detPalavra()
     }
 }
 
+void verPalavra(int tentativas)
+{
+    short int cont, cont2, verificador;
+    
+    for(cont = 0; cont < 5; cont++)
+    {
+        if(menu[tentativas][cont] == menu[0][cont]) menu[tentativas][cont] = AZUL; 
+    }
+
+    tentativas++;
+}
+*/
 void interfaceGames()
 {
-    short int cont, cont2, contInterface, contInterface2, checagemPalavra;
+    short int cont, cont2, checagemPalavra, tentativas = 1;
 
     for(cont = 1; cont < 8; cont++)
     {
@@ -54,9 +66,9 @@ void interfaceGames()
     {
         system("clear");
         
-        for(contInterface = 0; contInterface < 7; contInterface++)
+        for(int contInterface = 0; contInterface < 7; contInterface++)
         {
-            for(contInterface2 = 0 ;contInterface2 < 5; contInterface2++) printf("%c   ", menu[contInterface][contInterface2]);
+            for(int contInterface2 = 0 ;contInterface2 < 5; contInterface2++) printf("%c   ", menu[contInterface][contInterface2]);
             printf("\n\n");
         }
 
@@ -76,52 +88,23 @@ void interfaceGames()
                     for(cont2 = 0; cont2 < 5; cont2++) menu[cont][cont2] = toupper(menu[cont][cont2]);
                     checagemPalavra = 1;
                 }
+                
+                //verPalavra(tentativas);
             }
         }
     }
 }
-
-/*
-void game()
-{
-    short int cont, cont2, chances = 0, posicionador = 1, ganhar;
-    
-    printf("Tente adivinhar a palavra: ");
-    scanf("%s", &tentativa);
-        
-    if(tentativa[5] != '\0') printf("Palavra grande demais, digite novamente: ");
-    else
-    {
-        ganhar = strcmp(palavra,tentativa); 
-        system("clear");
-        for(cont = 0; cont < 5; cont++)
-        {
-            if(ganhar == 0)
-            {
-                system("clear");
-                printf("Acertou miseravi");
-                chances = 5;
-                return 0;
-            }
-            else
-            {
-                if(tentativa[cont] == palavra[cont]) printf("A letra %c esta correta \n", tentativa[cont]);
-            }
-        }
-    }
-    posicionador++;
-    chances++;
-}
-*/
 
 int main()
 {
+
+
     char op = '9';
     printf(AZUL "\n\t\tTermo\n\n1 - Iniciar o Jogo\n0 - Encerrar o codigo\n\n");
     
     do
     {
-        printf(AZUL "Digite sua escolha para continuar: ");
+        printf(BRANCO "Digite sua escolha para continuar: ");
         scanf("%s", &op);
 
         if(op == '0') break;
