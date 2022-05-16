@@ -2,9 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include </Home/Chewbaccaun>
 #define RESETAR  "\x1B[0m"      //SE [1;**m - Negrito
-#define VERMELHO  "\x1B[31m"    //SE
+#define VERMELHO  "\x1B[31m"
 #define VERDE  "\x1B[32m"
 #define AMARELO  "\x1B[33m"
 #define LARANJA  "\x1B[34m"
