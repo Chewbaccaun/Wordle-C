@@ -1,17 +1,18 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#define RESETAR  "\x1B[0m"      //SE [1;**m - Negrito
-#define VERMELHO  "\x1B[31m"    //SE
-#define VERDE  "\x1B[32m"
-#define AMARELO  "\x1B[33m"
-#define LARANJA  "\x1B[34m"
-#define AZUL  "\x1B[3;35m"
-#define CIANO  "\x1B[36m"
-#define BRANCO  "\x1B[37m"
+#define RESETAR   "\x1B[0m"      //SE [1;**m - Negrito
+#define VERMELHO  "\x1B[3;35m"   
+#define VERDE     "\x1B[32m"
+#define AMARELO   "\x1B[33m"
+#define LARANJA   "\x1B[31m"
+#define AZUL      "\x1B[34m"
+#define CIANO     "\x1B[36m"
+#define BRANCO    "\x1B[37m"
 
 char menu[8][6];
+int a[7][5];
 
 void detPalavra()
 {
@@ -19,7 +20,7 @@ void detPalavra()
     short int i;
     
     printf("\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
-
+    
     for(;;)
     {
         scanf("%s", palavra);
@@ -36,21 +37,33 @@ void detPalavra()
     }
 }
 
+////////////
+
 void verPalavra(int tentativas)
 {
-    short int cont, cont2, verificador;
-    
+    short int cont, cont2;
+
+
     for(cont = 0; cont < 5; cont++)
     {
-        if(menu[tentativas][cont] == menu[0][cont]) menu[tentativas][cont] = AZUL; 
-    }
 
-    tentativas++;
+        for(cont2 = 0; cont2 < 5; cont2++){
+
+        if(menu[tentativas][cont] == menu[0][cont2])
+        a[tentativas][cont] = 2;
+
+        if(menu[tentativas][cont] == menu[0][cont])
+        a[tentativas][cont] = 1;  
+        }
+    } 
 }
-*/
+
+
+////////////
+
 void interfaceGames()
 {
-    short int cont, cont2, checagemPalavra, tentativas = 1;
+    short int cont, cont2, checagemPalavra, tentativas = 0;
 
     for(cont = 1; cont < 8; cont++)
     {
@@ -62,17 +75,39 @@ void interfaceGames()
 
     cont = 1;
 
-    for(;cont < 8; cont++)
+    for(;cont < 7; cont++)
     {
+        
         system("clear");
         
-        for(int contInterface = 0; contInterface < 7; contInterface++)
+
+        for(int contInterface = 1; contInterface < 7; contInterface++)
         {
-            for(int contInterface2 = 0 ;contInterface2 < 5; contInterface2++) printf("%c   ", menu[contInterface][contInterface2]);
+            for(int contInterface2 = 0 ;contInterface2 < 5; contInterface2++){ 
+               
+            if(a[contInterface][contInterface2]==0)
+
+            printf(BRANCO"%c   ", menu[contInterface][contInterface2]);
+            
+            else{
+            if(a[contInterface][contInterface2]==1)
+
+            printf(AZUL"%c   ", menu[contInterface][contInterface2]);
+
+            else
+
+            printf(AMARELO"%c   ", menu[contInterface][contInterface2]);
+
+            }
+            }
+             
             printf("\n\n");
+                
         }
 
-        if(menu[7][4] == '*')
+        tentativas++;
+                
+        if(menu[6][4] == '*')
         {
             for(checagemPalavra = 0; checagemPalavra < 1;)
             {
@@ -89,7 +124,9 @@ void interfaceGames()
                     checagemPalavra = 1;
                 }
                 
-                //verPalavra(tentativas);
+                
+                        verPalavra(tentativas);
+                
             }
         }
     }
@@ -100,7 +137,7 @@ int main()
 
 
     char op = '9';
-    printf(AZUL "\n\t\tTermo\n\n1 - Iniciar o Jogo\n0 - Encerrar o codigo\n\n");
+    printf(VERMELHO "\n\t\tTermo\n\n1 - Iniciar o Jogo\n0 - Encerrar o codigo\n\n");
     
     do
     {
