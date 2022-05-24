@@ -28,7 +28,7 @@ void detPalavra()
         else break;
     }
 
-    system("clear");
+    system("cls");
     
     for(i = 0; i < 5; i++)
     {
@@ -56,14 +56,14 @@ void verPalavra(int tentativas)
         a[tentativas][cont] = 1;  
         }
     } 
-}
 
+}
 
 ////////////
 
 void interfaceGames()
 {
-    short int cont, cont2, checagemPalavra, tentativas = 0;
+    short int cont, cont2, checagemPalavra, tentativas = 0, i, j;
 
     for(cont = 1; cont < 8; cont++)
     {
@@ -78,7 +78,7 @@ void interfaceGames()
     for(;cont < 7; cont++)
     {
         
-        system("clear");
+        system("cls");
         
 
         for(int contInterface = 1; contInterface < 7; contInterface++)
@@ -106,7 +106,7 @@ void interfaceGames()
         }
 
         tentativas++;
-                
+
         if(menu[6][4] == '*')
         {
             for(checagemPalavra = 0; checagemPalavra < 1;)
@@ -124,9 +124,22 @@ void interfaceGames()
                     checagemPalavra = 1;
                 }
                 
-                
+                    for(i = 0, j = 0; i < 5; i++){
+
+                    if(menu[tentativas][i] == menu[0][i])
+                    j++;
+
+                    }
+
+                        if(j == 5){
+
+                        printf("Acerto miseravi!");
+
+                        return 0;
+                    }
+
                         verPalavra(tentativas);
-                
+                        
             }
         }
     }
@@ -156,7 +169,7 @@ int main()
 
     } while (op != '0');
 
-    system("clear");
+    
     printf("\nCodigo encerrado, tchau.\n");
     
     return 0;
