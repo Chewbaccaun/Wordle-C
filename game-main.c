@@ -131,10 +131,10 @@ void interfaceGames()
         
           
         if (ped == 1)
-            {
+        {
                 printf (VERDE "\n PARABUAIS VOCE' ACERTOU =) ");
-                return 0;
-            }
+                return;
+        }
 
         tentativas++;
 
