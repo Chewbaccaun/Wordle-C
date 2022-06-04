@@ -28,7 +28,7 @@ void detPalavra()
     for(;;)
     {
         system("clear");
-        printf(VERDE "\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
+        printf("\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
         scanf("%6s", palavra );
         if(strlen(palavra) != 5)
         {
@@ -123,7 +123,7 @@ void interfaceGames()
                 printf("Voce Acertou a palavra!!!\n\n");
                 for(;;)
                 {
-                    printf("Deseja continar?\nDigite S para jogar novamente ou N para encerrar o codigo:");
+                    printf("Deseja continar?\nDigite S para jogar novamente ou N para encerrar o codigo: ");
                     __fpurge(stdin);
                     scanf("%c", &dnv);
                     dnv = toupper(dnv);
@@ -154,18 +154,28 @@ void interfaceGames()
         if(menu[6][4] == '*')
         {
             for(checagemPalavra = 0; checagemPalavra < 1;)
-            {
-                
+            {  
                 printf("Tente advinhar a palavra: \n");
-                scanf("%s", menu[cont]);
+                scanf("%6s", menu[cont]);
+                __fpurge(stdin);
             
-                if(strlen(menu[cont]) != 5) printf("Tamanho incorreto, digite novamente.\n");
-                
-                else    if (isalpha(menu[cont][0]) == 0 || isalpha(menu[cont] [1]) == 0 || isalpha(menu[cont] [2]) == 0 || isalpha(menu[cont] [3] )  == 0 || isalpha(menu[cont] [4] )  == 0)
-                        { 
-                            printf ("Existem Caracteres invalidos, Digite Novamente =( : ");
+                if(strlen(menu[cont]) != 5)
+                {
+                    printf("Tamanho incorreto, digite novamente.\n");
+                    for(int buffer = cont + 1; buffer < 7; buffer++)
+                    {
+                        for(cont2 = 0; cont2 < 5; cont2++)
+                        {
+                            menu[buffer][cont2] = '*';
                         }
-             
+                    }
+                }
+                
+                else    if (isalpha(menu[cont][0]) == 0 || isalpha(menu[cont][1]) == 0 || isalpha(menu[cont][2]) == 0 || isalpha(menu[cont][3] )  == 0 || isalpha(menu[cont][4] ) == 0)
+                        { 
+                            printf ("Existem Caracteres invalidos, Digite Novamente =(\n");
+                        }
+
                         else
                         {
                             for(cont2 = 0; cont2 < 5; cont2++) menu[cont][cont2] = toupper(menu[cont][cont2]);
