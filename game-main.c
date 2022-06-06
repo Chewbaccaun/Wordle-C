@@ -16,7 +16,7 @@
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 char menu[7][6];
-int a[7][5] = {{0,0,0,0,0}, {0,0,0,0,0}, {0,0,0,0,0}, {0,0,0,0,0}, {0,0,0,0,0}, {0,0,0,0,0}, {0,0,0,0,0}};
+int a[7][5];
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
@@ -29,6 +29,7 @@ void detPalavra()
     {
         system("clear");
         printf("\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
+        __fpurge(stdin);
         scanf("%6s", palavra );
         if(strlen(palavra) != 5)
         {
@@ -48,25 +49,6 @@ void detPalavra()
         menu[0][i] = palavra[i];
         menu[0][i] = toupper(menu[0][i]); 
     }
-}
-//////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-void verPalavra(int tentativas)
-{
-    short int cont, cont2;
-
-    for(cont = 0; cont < 5; cont++)
-    {
-        for(cont2 = 0; cont2 < 5; cont2++)
-        {  
-            if(menu[tentativas][cont] == menu[0][cont])
-            a[tentativas][cont] = 1;  
-
-            if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1)
-            a[tentativas][cont] = 2;
-        }
-    } 
 }
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
@@ -114,41 +96,45 @@ void interfaceGames()
             printf("\n\n"); 
         }
 
+        printf(BRANCO);
         tentativas++;
 
-        for (int contInterface3 = 0; contInterface3 < 6; contInterface3++)
+    for (int contInterface3 = 0; contInterface3 < 7; contInterface3++)
+    {
+        if (a[contInterface3][0]== 1 && a[contInterface3][1]==1 && a[contInterface3][2]==1 && a[contInterface3][3]==1 && a[contInterface3][4]==1)
         {
-            if (a[contInterface3][0]== 1 && a[contInterface3][1]==1 && a[contInterface3][2]==1 && a[contInterface3][3]==1 && a[contInterface3][4]==1)
+            printf("Voce Acertou a palavra!!!\n\n");
+            for(;;)
             {
-                printf("Voce Acertou a palavra!!!\n\n");
-                for(;;)
-                {
-                    printf("Deseja continar?\nDigite S para jogar novamente ou N para encerrar o codigo: ");
-                    __fpurge(stdin);
-                    scanf("%c", &dnv);
-                    dnv = toupper(dnv);
-                    if(dnv == 'S')
-                    {   
-                        for(cont = 0; cont < 8; cont++)
+                printf("Deseja continar?\nDigite S para jogar novamente ou N para encerrar o codigo: ");
+                __fpurge(stdin);
+                scanf("%c", &dnv);
+                dnv = toupper(dnv);
+                if(dnv == 'S')
+                {   
+                    for(cont = 0; cont < 8; cont++)
+                    {
+                        for(cont2 = 0; cont2 < 5; cont2++)
                         {
-                            for(cont2 = 0; cont2 < 5; cont2++)
-                            {
-                                menu[cont][cont2] = '*';
-                            }
+                            menu[cont][cont2] = '*';
                         }
-                        for(cont = 0; cont < 8; cont++)
-                        {
-                            for(cont2 = 0; cont2 < 5; cont2++)
-                            {
-                                a[cont][cont2] = 0;
-                            }
-                        }
-                        main();
                     }
-                    else    if(dnv == 'N') return;
-                            else printf("Digito incorreto, tente novamente!\n:");
+                    for(cont = 0; cont < 8; cont++)
+                    {
+                        for(cont2 = 0; cont2 < 5; cont2++)
+                        {
+                            a[cont][cont2] = 0;
+                        }
+                    }
+                    main();
+                }
+                else
+                {
+                    if(dnv == 'N') return;
+                    else printf("Digito incorreto, tente novamente!\n:");
                 }
             }
+        }
         }
 
         if(menu[6][4] == '*')
@@ -156,8 +142,8 @@ void interfaceGames()
             for(checagemPalavra = 0; checagemPalavra < 1;)
             {  
                 printf("Tente advinhar a palavra: \n");
-                scanf("%6s", menu[cont]);
                 __fpurge(stdin);
+                scanf("%6s", menu[cont]);
             
                 if(strlen(menu[cont]) != 5)
                 {
@@ -190,8 +176,34 @@ void interfaceGames()
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
+void verPalavra(int tentativas)
+{
+    short int cont, cont2;
+
+    for(cont = 0; cont < 5; cont++)
+    { 
+        if(menu[tentativas][cont] != menu[0][cont])
+        a[tentativas][cont] = 0;
+    }
+
+    for(cont = 0; cont < 5; cont++)
+    {
+        for(cont2 = 0; cont2 < 5; cont2++)
+        {  
+            if(menu[tentativas][cont] == menu[0][cont])
+            a[tentativas][cont] = 1;  
+
+            if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1)
+            a[tentativas][cont] = 2;
+        }
+    } 
+}
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 int main()
 {
+    inicio:
     system("clear");
     char op = '9';
     printf(VERMELHON "\n\t\tTermo\n\n1 - Iniciar o Jogo\n0 - Encerrar o codigo\n\n");
@@ -199,21 +211,19 @@ int main()
     do
     {
         printf(VERMELHO "Digite sua escolha para continuar: ");
-        scanf("%s", &op);
+        __fpurge(stdin);
+        scanf("%c", &op);
 
-        if(op == '0') break;
-
-        if(op != '1') printf("\nOpcao invalida. Tente novamente\n");
-        else
+        if(op == '1')
         {
             detPalavra();
             interfaceGames();
-            op = '0';
+            break;
         }
+        else if(op != '0') printf("\nOpcao invalida. Tente novamente\n");
 
     } while (op != '0');
 
-    __fpurge(stdin);  
     printf("\nCodigo encerrado, tchau.\n");
     return 0;
 }
