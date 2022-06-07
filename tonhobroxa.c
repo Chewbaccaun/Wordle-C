@@ -68,20 +68,9 @@ void detPalavra()
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
-void interfaceGames()
+void vervit()
 {
-    short int cont, cont2, checagemPalavra, tentativas = 0;
     char dnv;
-    system("clear");
-    preencherMat();
- 
-    cont = 1;
-    printf(BRANCO);
-
-    for(;cont < 8; cont++)
-    {
-        imprimirMenu();
-        tentativas++;
 
     for (int contInterface3 = 0; contInterface3 < 7; contInterface3++)
     {
@@ -96,16 +85,16 @@ void interfaceGames()
                 dnv = toupper(dnv);
                 if(dnv == 'S')
                 {   
-                    for(cont = 0; cont < 8; cont++)
+                    for(int cont = 0; cont < 8; cont++)
                     {
-                        for(cont2 = 0; cont2 < 5; cont2++)
+                        for(int cont2 = 0; cont2 < 5; cont2++)
                         {
                             menu[cont][cont2] = '*';
                         }
                     }
-                    for(cont = 0; cont < 8; cont++)
+                    for(int cont = 0; cont < 8; cont++)
                     {
-                        for(cont2 = 0; cont2 < 5; cont2++)
+                        for(int cont2 = 0; cont2 < 5; cont2++)
                         {
                             a[cont][cont2] = 0;
                         }
@@ -114,47 +103,79 @@ void interfaceGames()
                 }
                 else
                 {
-                    if(dnv == 'N') return;
+                    if(dnv == 'N')
+                    {
+                        menu[6][4] = 'a';
+                        return ;
+                    }
                     else printf("Digito incorreto, tente novamente!\n:");
                 }
             }
         }
-        }
-
-        if(menu[6][4] == '*')
-        {
-            for(checagemPalavra = 0; checagemPalavra < 1;)
-            {  
-                printf("Tente advinhar a palavra: \n");
-                __fpurge(stdin);
-                scanf("%6s", menu[cont]);
+    }
+}
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+void adicionarPal(int cont)
+{
+    if(menu[6][4] == '*')
+    {
+        for(int checagemPalavra = 0; checagemPalavra < 1;)
+        {  
+            printf("Tente advinhar a palavra: \n");
+            __fpurge(stdin);
+            scanf("%6s", menu[cont]);
             
-                if(strlen(menu[cont]) != 5)
+            if(strlen(menu[cont]) != 5)
+            {
+                printf("Tamanho incorreto, digite novamente.\n");
+                for(int buffer = cont + 1; buffer < 7; buffer++)
                 {
-                    printf("Tamanho incorreto, digite novamente.\n");
-                    for(int buffer = cont + 1; buffer < 7; buffer++)
+                    for(int cont2 = 0; cont2 < 5; cont2++)
                     {
-                        for(cont2 = 0; cont2 < 5; cont2++)
-                        {
-                            menu[buffer][cont2] = '*';
-                        }
+                        menu[buffer][cont2] = '*';
                     }
                 }
-                
-                else    if (isalpha(menu[cont][0]) == 0 || isalpha(menu[cont][1]) == 0 || isalpha(menu[cont][2]) == 0 || isalpha(menu[cont][3] )  == 0 || isalpha(menu[cont][4] ) == 0)
-                        { 
-                            printf ("Existem Caracteres invalidos, Digite Novamente =(\n");
-                        }
-
-                        else
-                        {
-                            for(cont2 = 0; cont2 < 5; cont2++) menu[cont][cont2] = toupper(menu[cont][cont2]);
-                            checagemPalavra = 1;
-                        }
-
-                verPalavra(tentativas);
             }
+                
+            else    if (isalpha(menu[cont][0]) == 0 || isalpha(menu[cont][1]) == 0 || isalpha(menu[cont][2]) == 0 || isalpha(menu[cont][3] )  == 0 || isalpha(menu[cont][4] ) == 0)
+                    { 
+                        printf ("Existem Caracteres invalidos, Digite Novamente =(\n");
+                    }
+
+                    else
+                    {
+                        for(int cont2 = 0; cont2 < 5; cont2++) menu[cont][cont2] = toupper(menu[cont][cont2]);
+                        checagemPalavra = 1;
+                    }
         }
+    }
+}
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+void Game()
+{
+    short int cont, cont2, tentativas = 0;
+    system("clear");
+    preencherMat();
+ 
+    cont = 1;
+    printf(BRANCO);
+
+    for(;cont < 8; cont++)
+    {
+        imprimirMenu();
+        tentativas++;
+
+        vervit();
+        if(menu[6][4] == '*')
+        { 
+            adicionarPal(cont);
+            verPalavra(tentativas);
+        }
+        else return;
     }
 }
 //////////////////////////////////////////////////////////////
@@ -231,7 +252,7 @@ int main()
         if(op == '1')
         {
             detPalavra();
-            interfaceGames();
+            Game();
             break;
         }
         else if(op != '0') printf("\nOpcao invalida. Tente novamente\n");
