@@ -166,14 +166,18 @@ void verPalavra(int tentativas)
 
     for(cont = 0; cont < 5; cont++)
     {
-        if(menu[tentativas][cont] != menu[tentativas][cont]) a[tentativas][cont] = 0;
-        if(menu[tentativas][cont] == menu[0][cont]) a[tentativas][cont] = 1;
+        if(menu[tentativas][cont] != menu[0][cont])
+        a[tentativas][cont] = 0;
+
+        if(menu[tentativas][cont] == menu[0][cont])
+        a[tentativas][cont] = 1;
+
         else
         {
             for(cont2 = 0; cont2 < 5; cont2++)
             {
-            if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1) a[tentativas][cont] = 2;
-            
+                if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1)
+                a[tentativas][cont] = 2;
             }
         }
     }
