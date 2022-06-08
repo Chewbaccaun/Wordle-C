@@ -38,32 +38,50 @@ void PreencherMatriz()
 void DeterminarPalavra()
 {
     char palavra[6] = "*****";
-    short int i;
-    
-    for(;;)
+    short int i, cont, loop;
+    system("clear");
+
+    for(loop = 0; loop < 1;)
     {
-        system("clear");
-        printf("\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
-        setbuf(stdin, NULL);
-        scanf("%6s", palavra );
-        if(strlen(palavra) != 5)
+        for(cont = 0; cont < 5; cont++)
         {
-            printf("Tamanho incorreto, digite novamente: ");
-            system("clear");
+            printf("\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
+            __fpurge(stdin);
+            scanf("%6s", palavra);
+
+            for(i = 0; i < 5; i++) palavra[i] = toupper(palavra[i]); 
+            
+            if(palavra[0] == palavra[1] && palavra[1] == palavra[2] && palavra[2] == palavra[3] && palavra[3] == palavra[4]) printf("Todas as letras sao iguais\n");
+
+            else
+
+            if(palavra[0] == 'A' && palavra[1] == 'E' && palavra[2] == 'I' && palavra[3] == 'O' && palavra[4] == 'U') printf("AEIOU eh mole ne.\n");
+        
+            else
+
+            if(strlen(palavra) != 5)
+            {   
+                printf("Tamanho incorreto, digite novamente: ");
+                palavra[6] = "/0";
+            }
+            
+            else    
+            
+            if (isalpha(palavra[0]) == 0 || isalpha(palavra[1]) == 0 || isalpha(palavra[2]) == 0 || isalpha(palavra[3]) == 0 || isalpha(palavra[4]) == 0 ) 
+            {
+                printf ("Existem Caracteres invalidos, Digite Novamente  : ");
+            }
+
+            else
+            {
+                for(i = 0; i < 5; i++)  menu[0][i] = palavra[i];
+                loop = 1;
+                break;
+            }
         }
-
-        else    if (isalpha(palavra[0]) == 0 || isalpha(palavra[1]) == 0 || isalpha(palavra[2]) == 0 || isalpha(palavra[3]) == 0 || isalpha(palavra[4]) == 0 ) 
-                {
-                    printf ("Existem Caracteres invalidos, Digite Novamente  : ");
-                }
-                else break;
     }
 
-    for(i = 0; i < 5; i++)
-    {
-        menu[0][i] = palavra[i];
-        menu[0][i] = toupper(menu[0][i]); 
-    }
+
 }
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
@@ -80,7 +98,7 @@ void VerificarVitoria()
             for(;;)
             {
                 printf("Deseja continar?\nDigite 1 para jogar novamente ou 0 para encerrar o codigo: ");
-                setbuf(stdin, NULL);
+                __fpurge(stdin);
                 scanf("%c", &dnv);
                 dnv = toupper(dnv);
                 if(dnv == '1')
@@ -124,7 +142,7 @@ void AdicionarPalavra(int cont)
         for(int checagemPalavra = 0; checagemPalavra < 1;)
         {  
             printf("Tente advinhar a palavra: \n");
-            setbuf(stdin, NULL);
+            __fpurge(stdin);
             scanf("%6s", menu[cont]);
             for(int cont2 = 0; cont2 < 5; cont2++) menu[cont][cont2] = toupper(menu[cont][cont2]);
 
@@ -232,7 +250,7 @@ void VerificarPalavra(int tentativas)
 //////////////////////////////////////////////////////////////
 void imprimirMenu()
 {
-    setbuf(stdin, NULL);
+    __fpurge(stdin);
     system("clear");
     for(int contInterface = 1; contInterface < 7; contInterface++)
     {
@@ -271,7 +289,7 @@ int main()
     do
     {
         printf(VERMELHO "Digite sua escolha para continuar: ");
-        setbuf(stdin, NULL);
+        __fpurge(stdin);
         scanf("%s", &op);
 
         if(op == '1')
@@ -283,7 +301,6 @@ int main()
         else if(op != '0')
         {
             printf("\nOpcao invalida. Tente novamente\n");
-            op = 'q';
         }
 
     } while (op != '0');
