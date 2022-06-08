@@ -23,7 +23,7 @@ void PreencherMatriz(char menu[8][6])
     {
         for(cont2 = 0; cont2 < 5; cont2++)
         {
-            menu[cont][cont2] = '*';
+            menu[cont][cont2] = '_';
         }
     }
 }
@@ -40,22 +40,31 @@ void DeterminarPalavra(char menu[8][6])
     {
         for(cont = 0; cont < 5; cont++)
         {
-            printf(VERMELHO "\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
+            printf(VERMELHO "\n\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
             __fpurge(stdin);
             scanf("%6s", palavra);
 
             for(i = 0; i < 5; i++) palavra[i] = toupper(palavra[i]); 
             
-            if(palavra[0] == palavra[1] && palavra[1] == palavra[2] && palavra[2] == palavra[3] && palavra[3] == palavra[4]) printf("Todas as letras sao iguais\n");
+            if(palavra[0] == palavra[1] && palavra[1] == palavra[2] && palavra[2] == palavra[3] && palavra[3] == palavra[4])
+            {
+                system("clear");
+                printf("Todas as letras sao iguais");
+            }
 
             else
 
-            if(palavra[0] == 'A' && palavra[1] == 'E' && palavra[2] == 'I' && palavra[3] == 'O' && palavra[4] == 'U') printf("AEIOU eh mole ne.\n");
+            if(palavra[0] == 'A' && palavra[1] == 'E' && palavra[2] == 'I' && palavra[3] == 'O' && palavra[4] == 'U')
+            {
+                system("clear");
+                printf("AEIOU nao vale.");   
+            }
         
             else
 
             if(strlen(palavra) != 5)
             {   
+                system("clear");
                 printf("Tamanho incorreto, digite novamente");
                 palavra[5] = '/0';
             }
@@ -64,6 +73,7 @@ void DeterminarPalavra(char menu[8][6])
             
             if(isalpha(palavra[0]) == 0 || isalpha(palavra[1]) == 0 || isalpha(palavra[2]) == 0 || isalpha(palavra[3]) == 0 || isalpha(palavra[4]) == 0 ) 
             {
+                system("clear");
                 printf ("Existem Caracteres invalidos, Digite Novamente");
             }
 
@@ -88,7 +98,7 @@ char VerificarVitoria(char menu[8][6], int a[7][5], int cont)
         printf(VERMELHO "Voce Acertou a palavra!!!\n\n");
         for(;;)
         {
-            printf("Deseja continar?\nDigite 1 para jogar novamente ou 0 para encerrar o codigo: ");
+            printf("Deseja jogar novamente?\nDigite 1 para jogar novamente ou 0 para encerrar o codigo: ");
             __fpurge(stdin);
             scanf("%c", &dnv[0]);
             if(dnv[0] == '1')
@@ -97,7 +107,7 @@ char VerificarVitoria(char menu[8][6], int a[7][5], int cont)
                 {
                     for(int cont2 = 0; cont2 < 5; cont2++)
                         {
-                            menu[cont][cont2] = '*';
+                            menu[cont][cont2] = '_';
                         }
                 }
 
@@ -126,12 +136,12 @@ char VerificarVitoria(char menu[8][6], int a[7][5], int cont)
     }
     else
     { 
-        if(menu[6][4] != '*')
+        if(menu[6][4] != '_')
         {
             printf(VERMELHO "Voce Perdeu!!!\n\n");
             for(;;)
             {
-                printf("Deseja continar?\nDigite 1 para jogar novamente ou 0 para encerrar o codigo: ");
+                printf("Deseja jogar novamente?\nDigite 1 para jogar novamente ou 0 para encerrar o codigo: ");
                 __fpurge(stdin);
                 scanf("%c", &dnv[0]);
                 if(dnv[0] == '1')
@@ -140,7 +150,7 @@ char VerificarVitoria(char menu[8][6], int a[7][5], int cont)
                     {
                         for(int cont2 = 0; cont2 < 5; cont2++)
                         {
-                            menu[cont][cont2] = '*';
+                            menu[cont][cont2] = '_';
                         }
                     }
 
@@ -174,35 +184,35 @@ char VerificarVitoria(char menu[8][6], int a[7][5], int cont)
 //////////////////////////////////////////////////////////////
 void AdicionarPalavra(int cont, char menu[8][6])
 {
-    if(menu[6][4] == '*')
+    if(menu[6][4] == '_')
     {
         for(int checagemPalavra = 0; checagemPalavra < 1;)
-        {  
+        { 
             printf(VERMELHO "Tente advinhar a palavra: \n");
             __fpurge(stdin);
             scanf("%6s", menu[cont]);
-            for(int cont2 = 0; cont2 < 5; cont2++) menu[cont][cont2] = toupper(menu[cont][cont2]);
-
-            if(menu[cont][0] == menu[cont][1] && menu[cont][1] == menu[cont][2] && menu[cont][2] == menu[cont][3] && menu[cont][3] == menu[cont][4]) printf("Todas as letras sao iguais\n");
-
-            else
-
-            if(menu[cont][0] == 'A' && menu[cont][1] == 'E' && menu[cont][2] == 'I' && menu[cont][3] == 'O' && menu[cont][4] == 'U') printf("AEIOU eh mole ne.\n");
-            
-            else
+            for(int cont2 = 0; cont2 <= strlen(menu[cont]); cont2++) menu[cont][cont2] = toupper(menu[cont][cont2]);
 
             if(strlen(menu[cont]) != 5)
             {
+                for(int zero = 0; zero < 8; zero++) menu[zero][5] = '\0'; 
                 printf("Tamanho incorreto, digite novamente.\n");
                 for(int buffer = cont + 1; buffer < 8; buffer++)
                 {
                     for(int cont2 = 0; cont2 < 5; cont2++)
                     {
-                        menu[buffer][cont2] = '*';
+                        menu[buffer][cont2] = '_';
                     }
-                    menu[buffer - 1][5] = '\0';
-                }
+                }     
             }
+
+            else
+
+            if(menu[cont][0] == menu[cont][1] && menu[cont][1] == menu[cont][2] && menu[cont][2] == menu[cont][3] && menu[cont][3] == menu[cont][4]) printf("Todas as letras sao iguais\n");
+
+            else
+
+            if(menu[cont][0] == 'A' && menu[cont][1] == 'E' && menu[cont][2] == 'I' && menu[cont][3] == 'O' && menu[cont][4] == 'U') printf("AEIOU nao vale.\n");
                 
             else    
             
@@ -238,7 +248,7 @@ void Game(char menu[8][6], int a[7][5])
 
         VerificarVitoria(menu, a, cont);
 
-        if(menu[6][4] == '*' && menu[7][4] != '5')
+        if(menu[6][4] == '_' && menu[7][4] != '5')
         { 
             AdicionarPalavra(cont, menu);
             VerificarPalavra(tentativas, menu, a);
@@ -314,7 +324,7 @@ void imprimirMenu(char menu[8][6], int a[7][5])
                     printf(AMARELO "%c   ", menu[contInterface][contInterface2]);
             }
         }
-        printf("\n\n"); 
+        printf("\n\n");
     }
 
     printf(BRANCO);
