@@ -317,7 +317,7 @@ void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
         }
     }
 
-        for(cont = 0; cont < 5; cont++)
+    for(cont = 0; cont < 5; cont++)
     {
         if(menu[tentativas][cont] == menu[0][cont])
         a[tentativas][cont] = 1;
