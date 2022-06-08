@@ -270,10 +270,8 @@ void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
     {
         for(cont2 = 0; cont2 < 5; cont2++)
         {
-
-            if(menu[0][cont] == menu[0][cont2])
+            if(menu[tentativas][cont] == menu[0][cont2])
             a[0][cont] = cont2;
-
         }
     }
 
@@ -286,13 +284,34 @@ void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
         a[tentativas][cont] = 1;
     }
 
-    for(cont = 0; cont < 5; cont++)
+    if(a[0][0] != a[0][1] && a[0][1] != a[0][2] && a[0][2] != a[0][3] && a[0][3] != a[0][4])
     {
-        for(cont2 = 0; cont2 < 5; cont2++)
+        for(cont = 0; cont < 5; cont++)
         {
-            if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1)
+            for(cont2 = 0; cont2 < 5; cont2++)
             {
-                a[tentativas][cont] = 2;
+                if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1)
+                {
+                    a[tentativas][cont] = 2;
+                }
+            }
+        }
+    }
+    else
+    {
+        for(cont = 0; cont < 5; cont++)
+        {
+            for(cont2 = 0; cont2 < 5 && cont2 != cont; cont2++)
+            {
+                if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1)
+                {
+                    a[tentativas][cont] = 2;
+                }
+                if(menu[tentativas][cont] == menu[tentativas][cont2] && cont2 != cont)
+                {
+                    a[tentativas][cont2] = 0;
+                    cont++;
+                }
             }
         }
     }
