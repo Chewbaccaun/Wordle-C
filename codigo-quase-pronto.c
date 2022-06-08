@@ -177,7 +177,7 @@ void AdicionarPalavra(int cont, char menu[8][6])
 //////////////////////////////////////////////////////////////
 void Game(char menu[8][6], int a[7][5])
 {
-    short int cont, cont2, tentativas = 0;
+    short int cont, tentativas = 0;
     system("clear");
     PreencherMatriz(menu);
     DeterminarPalavra(menu);
