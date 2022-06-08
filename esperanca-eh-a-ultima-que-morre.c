@@ -13,18 +13,13 @@
 #define BRANCO "\033[0;37m"
 #define RESETAR "\033[0m"
 //////////////////////////////////////////////////////////////
+//**********************************************************//
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-char menu[7][6];
-int a[7][5] = {{0, 0, 0, 0, 0}};
-//////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-void PreencherMatriz()
+void PreencherMatriz(char menu[8][6])
 {
     short int cont, cont2;
 
-    for(cont = 1; cont < 8; cont++)
+    for(cont = 1; cont < 7; cont++)
     {
         for(cont2 = 0; cont2 < 5; cont2++)
         {
@@ -33,9 +28,9 @@ void PreencherMatriz()
     }
 }
 //////////////////////////////////////////////////////////////
+//**********************************************************//
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-void DeterminarPalavra()
+void DeterminarPalavra(char menu[8][6])
 {
     char palavra[6] = "*****";
     short int i, cont, loop;
@@ -45,7 +40,7 @@ void DeterminarPalavra()
     {
         for(cont = 0; cont < 5; cont++)
         {
-            printf("\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
+            printf(VERMELHO "\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
             __fpurge(stdin);
             scanf("%6s", palavra);
 
@@ -61,15 +56,15 @@ void DeterminarPalavra()
 
             if(strlen(palavra) != 5)
             {   
-                printf("Tamanho incorreto, digite novamente: ");
-                palavra[6] = "/0";
+                printf("Tamanho incorreto, digite novamente");
+                palavra[5] = '/0';
             }
             
-            else    
+            else
             
-            if (isalpha(palavra[0]) == 0 || isalpha(palavra[1]) == 0 || isalpha(palavra[2]) == 0 || isalpha(palavra[3]) == 0 || isalpha(palavra[4]) == 0 ) 
+            if(isalpha(palavra[0]) == 0 || isalpha(palavra[1]) == 0 || isalpha(palavra[2]) == 0 || isalpha(palavra[3]) == 0 || isalpha(palavra[4]) == 0 ) 
             {
-                printf ("Existem Caracteres invalidos, Digite Novamente  : ");
+                printf ("Existem Caracteres invalidos, Digite Novamente");
             }
 
             else
@@ -80,36 +75,75 @@ void DeterminarPalavra()
             }
         }
     }
-
-
 }
 //////////////////////////////////////////////////////////////
+//**********************************************************//
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-void VerificarVitoria()
+char VerificarVitoria(char menu[8][6], int a[7][5], int cont)
 {
-    char dnv;
+    char dnv[10];
 
-    for (int contInterface3 = 0; contInterface3 < 7; contInterface3++)
+    if (a[cont - 1][0] == 1 && a[cont - 1][1] == 1 && a[cont - 1][2] == 1 && a[cont - 1][3] == 1 && a[cont - 1][4] == 1)
     {
-        if (a[contInterface3][0]== 1 && a[contInterface3][1]==1 && a[contInterface3][2]==1 && a[contInterface3][3]==1 && a[contInterface3][4]==1)
+        printf(VERMELHO "Voce Acertou a palavra!!!\n\n");
+        for(;;)
         {
-            printf("Voce Acertou a palavra!!!\n\n");
+            printf("Deseja continar?\nDigite 1 para jogar novamente ou 0 para encerrar o codigo: ");
+            __fpurge(stdin);
+            scanf("%c", &dnv[0]);
+            if(dnv[0] == '1')
+            {   
+                for(int cont = 0; cont < 7; cont++)
+                {
+                    for(int cont2 = 0; cont2 < 5; cont2++)
+                        {
+                            menu[cont][cont2] = '*';
+                        }
+                }
+
+                for(int cont = 0; cont < 8; cont++)
+                {
+                    for(int cont2 = 0; cont2 < 5; cont2++)
+                    {
+                        a[cont][cont2] = 0;
+                    }
+                }
+
+                Game(menu, a);
+                break;
+            }
+            else
+            {
+                if(dnv[0] == '0')
+                {
+                    __fpurge(stdin);
+                    menu[7][4] = '5';
+                    return menu;
+                }
+                else printf("Digito incorreto, tente novamente!\n");
+            }
+        }
+    }
+    else
+    { 
+        if(menu[6][4] != '*')
+        {
+            printf(VERMELHO "Voce Perdeu!!!\n\n");
             for(;;)
             {
                 printf("Deseja continar?\nDigite 1 para jogar novamente ou 0 para encerrar o codigo: ");
                 __fpurge(stdin);
-                scanf("%c", &dnv);
-                dnv = toupper(dnv);
-                if(dnv == '1')
+                scanf("%c", &dnv[0]);
+                if(dnv[0] == '1')
                 {   
-                    for(int cont = 0; cont < 8; cont++)
+                    for(int cont = 0; cont < 7; cont++)
                     {
                         for(int cont2 = 0; cont2 < 5; cont2++)
                         {
                             menu[cont][cont2] = '*';
                         }
                     }
+
                     for(int cont = 0; cont < 8; cont++)
                     {
                         for(int cont2 = 0; cont2 < 5; cont2++)
@@ -117,31 +151,34 @@ void VerificarVitoria()
                             a[cont][cont2] = 0;
                         }
                     }
-                    main();
+
+                    Game(menu, a);
+                    break;
                 }
                 else
                 {
-                    if(dnv == '0')
+                    if(dnv[0] == '0')
                     {
-                        menu[6][4] = 'a';
-                        return ;
+                        __fpurge(stdin);
+                        menu[7][4] = '5';
+                        return menu;
                     }
-                    else printf("Digito incorreto, tente novamente!\n:");
+                    else printf("Digito incorreto, tente novamente!\n");
                 }
             }
         }
     }
 }
 //////////////////////////////////////////////////////////////
+//**********************************************************//
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-void AdicionarPalavra(int cont)
+void AdicionarPalavra(int cont, char menu[8][6])
 {
     if(menu[6][4] == '*')
     {
         for(int checagemPalavra = 0; checagemPalavra < 1;)
         {  
-            printf("Tente advinhar a palavra: \n");
+            printf(VERMELHO "Tente advinhar a palavra: \n");
             __fpurge(stdin);
             scanf("%6s", menu[cont]);
             for(int cont2 = 0; cont2 < 5; cont2++) menu[cont][cont2] = toupper(menu[cont][cont2]);
@@ -166,50 +203,55 @@ void AdicionarPalavra(int cont)
                 }
             }
                 
-            else    if (isalpha(menu[cont][0]) == 0 || isalpha(menu[cont][1]) == 0 || isalpha(menu[cont][2]) == 0 || isalpha(menu[cont][3] )  == 0 || isalpha(menu[cont][4] ) == 0)
-                    { 
-                        printf ("Existem Caracteres invalidos, Digite Novamente =(\n");
-                    }
+            else    
+            
+            if(isalpha(menu[cont][0]) == 0 || isalpha(menu[cont][1]) == 0 || isalpha(menu[cont][2]) == 0 || isalpha(menu[cont][3] )  == 0 || isalpha(menu[cont][4] ) == 0)
+            { 
+                printf ("Existem Caracteres invalidos, Digite Novamente =(\n");
+            }
 
-                    else
-                    {
-                        checagemPalavra = 1;
-                    }
+            else
+            {
+                checagemPalavra = 1;
+            }
         }
     }
 }
 //////////////////////////////////////////////////////////////
+//**********************************************************//
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-void Game()
+void Game(char menu[8][6], int a[7][5])
 {
-    short int cont, cont2, tentativas = 0;
+    short int cont, tentativas = 0;
     system("clear");
-    PreencherMatriz();
+    PreencherMatriz(menu);
+    DeterminarPalavra(menu);
  
     cont = 1;
     printf(BRANCO);
 
     for(;cont < 8; cont++)
     {
-        imprimirMenu();
+        imprimirMenu(menu, a);
         tentativas++;
 
-        VerificarVitoria();
-        if(menu[6][4] == '*')
+        VerificarVitoria(menu, a, cont);
+
+        if(menu[6][4] == '*' && menu[7][4] != '5')
         { 
-            AdicionarPalavra(cont);
-            VerificarPalavra(tentativas);
+            AdicionarPalavra(cont, menu);
+            VerificarPalavra(tentativas, menu, a);
         }
-        else 
-            
+        else
+        {
             return;
+        }
     }
 }
 //////////////////////////////////////////////////////////////
+//**********************************************************//
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-void VerificarPalavra(int tentativas)
+void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
 {
     short int cont, cont2;
 
@@ -217,41 +259,41 @@ void VerificarPalavra(int tentativas)
     {
         for(cont2 = 0; cont2 < 5; cont2++)
         {
+
             if(menu[0][cont] == menu[0][cont2])
             a[0][cont] = cont2;
+
         }
-    }  
+    }
 
     for(cont = 0; cont < 5; cont++)
     {
         if(menu[tentativas][cont] != menu[0][cont])
         a[tentativas][cont] = 0;
-        
+
         if(menu[tentativas][cont] == menu[0][cont])
         a[tentativas][cont] = 1;
-        
     }
 
     for(cont = 0; cont < 5; cont++)
     {
-
         for(cont2 = 0; cont2 < 5; cont2++)
         {
-            if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1 && a[0][cont] == 1)
+            if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1)
             {
                 a[tentativas][cont] = 2;
-                
             }
         }
-    }  
+    }
 }
 //////////////////////////////////////////////////////////////
+//**********************************************************//
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-void imprimirMenu()
+void imprimirMenu(char menu[8][6], int a[7][5])
 {
     __fpurge(stdin);
     system("clear");
+    printf(BRANCO);
     for(int contInterface = 1; contInterface < 7; contInterface++)
     {
         for(int contInterface2 = 0 ;contInterface2 < 5; contInterface2++)
@@ -277,16 +319,18 @@ void imprimirMenu()
     printf(BRANCO);
 }
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
+//**********************************************************//
 //////////////////////////////////////////////////////////////
 int main()
 {
     system("clear");
-    char op[500];
-
+    char op[10];
+    char menu[8][6];
+    int a[7][5] = {{0, 0, 0, 0, 0}};
+    menu[7][4] = '2';
     printf(VERMELHON "\n\t\tTermo\n\n1 - Iniciar o Jogo\n0 - Encerrar o codigo\n\n");
     
-    do
+    for(;op[0] != '0';)
     {
         printf(VERMELHO "Digite sua escolha para continuar: ");
         __fpurge(stdin);
@@ -294,20 +338,18 @@ int main()
 
         if(op[0] == '1')
         {
-            DeterminarPalavra();
-            Game();
+            Game(menu, a);
             break;
         }
-        else if(op[0] != '0')
+        else 
         {
+            if(op[0] != '0')
             printf("\nOpcao invalida. Tente novamente\n");
         }
 
-    } while (op[0] != '0');
-
-    printf("\nCodigo encerrado, tchau.\n");
+    }
     return 0;
 }
 //////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
+//**********************************************************//
 //////////////////////////////////////////////////////////////
