@@ -40,7 +40,7 @@ void DeterminarPalavra(char menu[8][6])
     {
         for(cont = 0; cont < 5; cont++)
         {
-            printf("\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
+            printf(VERMELHO "\nDigite uma palavra da lingua portuguesa de 5 caracteres: ");
             __fpurge(stdin);
             scanf("%6s", palavra);
 
@@ -57,12 +57,12 @@ void DeterminarPalavra(char menu[8][6])
             if(strlen(palavra) != 5)
             {   
                 printf("Tamanho incorreto, digite novamente");
-                palavra[6] = "/0";
+                palavra[5] = '/0';
             }
             
-            else    
+            else
             
-            if (isalpha(palavra[0]) == 0 || isalpha(palavra[1]) == 0 || isalpha(palavra[2]) == 0 || isalpha(palavra[3]) == 0 || isalpha(palavra[4]) == 0 ) 
+            if(isalpha(palavra[0]) == 0 || isalpha(palavra[1]) == 0 || isalpha(palavra[2]) == 0 || isalpha(palavra[3]) == 0 || isalpha(palavra[4]) == 0 ) 
             {
                 printf ("Existem Caracteres invalidos, Digite Novamente");
             }
@@ -79,13 +79,13 @@ void DeterminarPalavra(char menu[8][6])
 //////////////////////////////////////////////////////////////
 //**********************************************************//
 //////////////////////////////////////////////////////////////
-void VerificarVitoria(char menu[8][6], int a[7][5], int cont)
+char VerificarVitoria(char menu[8][6], int a[7][5], int cont)
 {
     char dnv[10];
 
     if (a[cont - 1][0] == 1 && a[cont - 1][1] == 1 && a[cont - 1][2] == 1 && a[cont - 1][3] == 1 && a[cont - 1][4] == 1)
     {
-        printf("Voce Acertou a palavra!!!\n\n");
+        printf(VERMELHO "Voce Acertou a palavra!!!\n\n");
         for(;;)
         {
             printf("Deseja continar?\nDigite 1 para jogar novamente ou 0 para encerrar o codigo: ");
@@ -133,7 +133,7 @@ void AdicionarPalavra(int cont, char menu[8][6])
     {
         for(int checagemPalavra = 0; checagemPalavra < 1;)
         {  
-            printf("Tente advinhar a palavra: \n");
+            printf(VERMELHO "Tente advinhar a palavra: \n");
             __fpurge(stdin);
             scanf("%6s", menu[cont]);
             for(int cont2 = 0; cont2 < 5; cont2++) menu[cont][cont2] = toupper(menu[cont][cont2]);
@@ -248,6 +248,7 @@ void imprimirMenu(char menu[8][6], int a[7][5])
 {
     __fpurge(stdin);
     system("clear");
+    printf(BRANCO);
     for(int contInterface = 1; contInterface < 7; contInterface++)
     {
         for(int contInterface2 = 0 ;contInterface2 < 5; contInterface2++)
