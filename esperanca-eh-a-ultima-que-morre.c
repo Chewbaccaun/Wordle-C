@@ -282,7 +282,7 @@ void imprimirMenu()
 int main()
 {
     system("clear");
-    char op = 'a';
+    char op[500];
 
     printf(VERMELHON "\n\t\tTermo\n\n1 - Iniciar o Jogo\n0 - Encerrar o codigo\n\n");
     
@@ -290,20 +290,20 @@ int main()
     {
         printf(VERMELHO "Digite sua escolha para continuar: ");
         __fpurge(stdin);
-        scanf("%s", &op);
+        scanf("%c", &op[0]);
 
-        if(op == '1')
+        if(op[0] == '1')
         {
             DeterminarPalavra();
             Game();
             break;
         }
-        else if(op != '0')
+        else if(op[0] != '0')
         {
             printf("\nOpcao invalida. Tente novamente\n");
         }
 
-    } while (op != '0');
+    } while (op[0] != '0');
 
     printf("\nCodigo encerrado, tchau.\n");
     return 0;
