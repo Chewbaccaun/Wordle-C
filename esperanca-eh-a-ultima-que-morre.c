@@ -292,6 +292,8 @@ void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
                     a[tentativas][cont] = 2;
                 }
             }
+            if(menu[tentativas][cont] == menu[0][cont])
+            a[tentativas][cont] = 1;
         }
     }
     else
@@ -310,6 +312,8 @@ void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
                     cont++;
                 }
             }
+            if(menu[tentativas][cont] == menu[0][cont])
+            a[tentativas][cont] = 1;
         }
     }
 
