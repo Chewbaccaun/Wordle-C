@@ -194,12 +194,13 @@ void AdicionarPalavra(int cont, char menu[8][6])
             if(strlen(menu[cont]) != 5)
             {
                 printf("Tamanho incorreto, digite novamente.\n");
-                for(int buffer = cont + 1; buffer < 7; buffer++)
+                for(int buffer = cont + 1; buffer < 8; buffer++)
                 {
                     for(int cont2 = 0; cont2 < 5; cont2++)
                     {
                         menu[buffer][cont2] = '*';
                     }
+                    menu[buffer - 1][5] = '\0';
                 }
             }
                 
