@@ -279,9 +279,6 @@ void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
     {
         if(menu[tentativas][cont] != menu[0][cont])
         a[tentativas][cont] = 0;
-
-        if(menu[tentativas][cont] == menu[0][cont])
-        a[tentativas][cont] = 1;
     }
 
     if(a[0][0] != a[0][1] && a[0][1] != a[0][2] && a[0][2] != a[0][3] && a[0][3] != a[0][4])
@@ -290,7 +287,7 @@ void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
         {
             for(cont2 = 0; cont2 < 5; cont2++)
             {
-                if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1)
+                if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1 && a[tentativas][cont] != 1)
                 {
                     a[tentativas][cont] = 2;
                 }
@@ -303,7 +300,7 @@ void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
         {
             for(cont2 = 0; cont2 < 5 && cont2 != cont; cont2++)
             {
-                if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1)
+                if(menu[tentativas][cont] == menu[0][cont2] && a[tentativas][cont2] != 1 && a[tentativas][cont] != 1)
                 {
                     a[tentativas][cont] = 2;
                 }
@@ -314,6 +311,12 @@ void VerificarPalavra(int tentativas, char menu[8][6], int a[7][5])
                 }
             }
         }
+    }
+
+        for(cont = 0; cont < 5; cont++)
+    {
+        if(menu[tentativas][cont] == menu[0][cont])
+        a[tentativas][cont] = 1;
     }
 }
 //////////////////////////////////////////////////////////////
